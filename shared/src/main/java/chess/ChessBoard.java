@@ -72,7 +72,6 @@ public class ChessBoard {
         board[0][6] = new ChessPiece(PieceType.KNIGHT, "WHITE");
         board[0][7] = new ChessPiece(PieceType.ROOK, "WHITE");
 
-        // Step 5: Place black major pieces
         board[7][0] = new ChessPiece(PieceType.ROOK, "BLACK");
         board[7][1] = new ChessPiece(PieceType.KNIGHT, "BLACK");
         board[7][2] = new ChessPiece(PieceType.BISHOP, "BLACK");
