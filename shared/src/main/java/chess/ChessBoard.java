@@ -1,5 +1,8 @@
 package chess;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 /**
  * A chessboard that can hold and rearrange chess pieces.
  * <p>
@@ -11,7 +14,6 @@ public class ChessBoard {
 
     public ChessBoard() {
         this.board = new ChessPiece[8][8];
-        resetBoard();
     }
 
     /**
@@ -22,14 +24,15 @@ public class ChessBoard {
      */
     public void addPiece(ChessPosition position, ChessPiece piece) {
         if (position.getRow() < 1 || position.getRow() > 8 || position.getColumn() < 1 || position.getColumn() > 8) {
-            throw new IllegalArgumentException("Position is out of bounds: " + position);
+            throw new IllegalArgumentException("Out of bounds: " + position);
         }
 
         int row = position.getRow() - 1;
         int col = position.getColumn() - 1;
 
-        board[row][col]=piece;
+        board[row][col] = piece;
     }
+
     /**
      * Gets a chess piece on the chessboard
      *
@@ -42,11 +45,12 @@ public class ChessBoard {
             throw new IllegalArgumentException("Position is out of bounds: " + position);
         }
 
-    int row = position.getRow() - 1;
-    int col = position.getColumn() - 1;
+        int row = position.getRow() - 1;
+        int col = position.getColumn() - 1;
 
-    return board[row][col];
-}
+        return board[row][col];
+    }
+
     /**
      * Sets the board to the default starting board
      * (How the game of chess normally starts)
@@ -58,28 +62,42 @@ public class ChessBoard {
             }
         }
         for (int col = 0; col < 8; col++) {
-            board[1][col] = new ChessPiece(PieceType.PAWN, "WHITE");
+            board[1][col] = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.PAWN);
         }
         for (int col = 0; col < 8; col++) {
-            board[6][col] = new ChessPiece(PieceType.PAWN, "BLACK");
+            board[6][col] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.PAWN);
         }
-        board[0][0] = new ChessPiece(PieceType.ROOK, "WHITE");
-        board[0][1] = new ChessPiece(PieceType.KNIGHT, "WHITE");
-        board[0][2] = new ChessPiece(PieceType.BISHOP, "WHITE");
-        board[0][3] = new ChessPiece(PieceType.QUEEN, "WHITE");
-        board[0][4] = new ChessPiece(PieceType.KING, "WHITE");
-        board[0][5] = new ChessPiece(PieceType.BISHOP, "WHITE");
-        board[0][6] = new ChessPiece(PieceType.KNIGHT, "WHITE");
-        board[0][7] = new ChessPiece(PieceType.ROOK, "WHITE");
+        board[0][0] = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.ROOK);
+        board[0][1] = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.KNIGHT);
+        board[0][2] = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.BISHOP);
+        board[0][3] = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.QUEEN);
+        board[0][4] = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.KING);
+        board[0][5] = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.BISHOP);
+        board[0][6] = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.KNIGHT);
+        board[0][7] = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.ROOK);
 
-        board[7][0] = new ChessPiece(PieceType.ROOK, "BLACK");
-        board[7][1] = new ChessPiece(PieceType.KNIGHT, "BLACK");
-        board[7][2] = new ChessPiece(PieceType.BISHOP, "BLACK");
-        board[7][3] = new ChessPiece(PieceType.QUEEN, "BLACK");
-        board[7][4] = new ChessPiece(PieceType.KING, "BLACK");
-        board[7][5] = new ChessPiece(PieceType.BISHOP, "BLACK");
-        board[7][6] = new ChessPiece(PieceType.KNIGHT, "BLACK");
-        board[7][7] = new ChessPiece(PieceType.ROOK, "BLACK");
+        board[7][0] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.ROOK);
+        board[7][1] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.KNIGHT);
+        board[7][2] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.BISHOP);
+        board[7][3] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.QUEEN);
+        board[7][4] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.KING);
+        board[7][5] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.BISHOP);
+        board[7][6] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.KNIGHT);
+        board[7][7] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.ROOK);
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ChessBoard that = (ChessBoard) o;
+        return Objects.deepEquals(board, that.board);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.deepHashCode(board);
+    }
 }
 
