@@ -88,12 +88,9 @@ public class ChessPiece {
 
         } else if (pieceType == PieceType.KNIGHT) {
             return knightMoves(board, myPosition);
-        /*
+
         } else if (pieceType == PieceType.PAWN) {
             return pawnMoves(board, myPosition);
-        }
-
-         */
         } else {
             return null;
         }
@@ -531,6 +528,12 @@ public class ChessPiece {
         }
         return moves;
     }
+    public Collection<ChessMove> pawnMoves(ChessBoard board, ChessPosition myPosition) {
+        int row = myPosition.getRow();
+        int col = myPosition.getColumn();
+        Collection<ChessMove> moves = new ArrayList<>();
+        //Forward
+        if (row - 1 >= 1 && row - 1 <= 8 && col - 2 >= 1 && col - 2 <= 8) {
 }
 
 
