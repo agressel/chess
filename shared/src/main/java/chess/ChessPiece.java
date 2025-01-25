@@ -119,10 +119,11 @@ public class ChessPiece {
         return moves;
     }
 
-    public Collection<ChessMove> rookMoves (ChessBoard board, ChessPosition myPosition) {
+    public Collection<ChessMove> rookMoves(ChessBoard board, ChessPosition myPosition) {
         int row = myPosition.getRow();
         int col = myPosition.getColumn();
         Collection<ChessMove> moves = new ArrayList<>();
+        //upwards
         for (int y = 1; y <= 8; y++) {
             if (row + y >= 1 && row + y <= 8 && col >= 1 && col <= 8) {
                 ChessPosition targetPosition = new ChessPosition(row + y, col);
@@ -139,29 +140,70 @@ public class ChessPiece {
                     }
                 }
             }
-
-            for (int x = 1; x <= 8; x++) {
-                if (row >= 1 && row <= 8 && col + x >= 1 && col + x <= 8) {
-                    ChessPosition targetPosition = new ChessPosition(row + y, col + x);
-                    ChessPiece targetPiece = board.getPiece(targetPosition);
-                    if (targetPiece == null) {
+        }
+        // downwards
+        for (int y = 1; y <= 8; y++) {
+            if (row - y >= 1 && row - y <= 8 && col >= 1 && col <= 8) {
+                ChessPosition targetPosition = new ChessPosition(row - y, col);
+                ChessPiece targetPiece = board.getPiece(targetPosition);
+                if (targetPiece == null) {
+                    moves.add(new ChessMove(myPosition, targetPosition, null));
+                }
+                if (targetPiece != null) {
+                    if (targetPiece.pieceColor == this.pieceColor) {
+                        break;
+                    } else {
                         moves.add(new ChessMove(myPosition, targetPosition, null));
-                    }
-                    if (targetPiece != null) {
-                        if (targetPiece.pieceColor == this.pieceColor) {
-                            break;
-                        } else {
-                            moves.add(new ChessMove(myPosition, targetPosition, null));
-                            break;
-                        }
+                        break;
                     }
                 }
             }
+        }
 
+
+
+        //rightwards
+        for (int x = 1; x <= 8; x++) {
+            if (row >= 1 && row <= 8 && col + x >= 1 && col + x <= 8) {
+                ChessPosition targetPosition = new ChessPosition(row, col + x);
+                ChessPiece targetPiece = board.getPiece(targetPosition);
+                if (targetPiece == null) {
+                    moves.add(new ChessMove(myPosition, targetPosition, null));
+                }
+                if (targetPiece != null) {
+                    if (targetPiece.pieceColor == this.pieceColor) {
+                        break;
+                    } else {
+                        moves.add(new ChessMove(myPosition, targetPosition, null));
+                        break;
+                    }
+                }
+            }
+        }
+
+        //leftwards
+        for (int x = 1; x <= 8; x++) {
+            if (row >= 1 && row <= 8 && col - x >= 1 && col - x <= 8) {
+                ChessPosition targetPosition = new ChessPosition(row, col - x);
+                ChessPiece targetPiece = board.getPiece(targetPosition);
+                if (targetPiece == null) {
+                    moves.add(new ChessMove(myPosition, targetPosition, null));
+                }
+                if (targetPiece != null) {
+                    if (targetPiece.pieceColor == this.pieceColor) {
+                        break;
+                    } else {
+                        moves.add(new ChessMove(myPosition, targetPosition, null));
+                        break;
+                    }
+                }
+            }
+        }
         return moves;
+    }
 
-    };
 
+}
 
      /*
     public Collection<ChessMove> bishopMoves (ChessBoard board, ChessPosition myPosition) {
@@ -197,9 +239,9 @@ public class ChessPiece {
                     moves.add(new ChessMove(myPosition, targetPosition, null));
                 }
     }
+    */
 
 
-}
 
 
 
