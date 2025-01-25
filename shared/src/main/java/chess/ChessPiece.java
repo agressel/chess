@@ -85,9 +85,10 @@ public class ChessPiece {
 
         } else if (pieceType == PieceType.QUEEN) {
             return queenMoves(board, myPosition);
-        /*
+
         } else if (pieceType == PieceType.KNIGHT) {
             return knightMoves(board, myPosition);
+        /*
         } else if (pieceType == PieceType.PAWN) {
             return pawnMoves(board, myPosition);
         }
@@ -455,6 +456,77 @@ public class ChessPiece {
                         break;
                     }
                 }
+            }
+        }
+        return moves;
+    }
+    public Collection<ChessMove> knightMoves(ChessBoard board, ChessPosition myPosition) {
+        int row = myPosition.getRow();
+        int col = myPosition.getColumn();
+        Collection<ChessMove> moves = new ArrayList<>();
+        //Up-Right
+        if (row + 2 >= 1 && row + 2 <= 8 && col + 1 >= 1 && col + 1 <= 8) {
+            ChessPosition targetPosition = new ChessPosition(row + 2, col + 1);
+            ChessPiece targetPiece = board.getPiece(targetPosition);
+            if (targetPiece == null || targetPiece.pieceColor != this.pieceColor) {
+                moves.add(new ChessMove(myPosition, targetPosition, null));
+            }
+        }
+
+        //Up-Left
+        if (row + 2 >= 1 && row + 2 <= 8 && col - 1 >= 1 && col - 1 <= 8) {
+            ChessPosition targetPosition = new ChessPosition(row + 2, col - 1);
+            ChessPiece targetPiece = board.getPiece(targetPosition);
+            if (targetPiece == null || targetPiece.pieceColor != this.pieceColor) {
+                moves.add(new ChessMove(myPosition, targetPosition, null));
+            }
+        }
+        //Right-Up
+        if (row + 1 >= 1 && row + 1 <= 8 && col + 2 >= 1 && col + 2 <= 8) {
+            ChessPosition targetPosition = new ChessPosition(row + 1, col + 2);
+            ChessPiece targetPiece = board.getPiece(targetPosition);
+            if (targetPiece == null || targetPiece.pieceColor != this.pieceColor) {
+                moves.add(new ChessMove(myPosition, targetPosition, null));
+            }
+        }
+        //Right-Down
+        if (row - 1 >= 1 && row - 1 <= 8 && col + 2 >= 1 && col + 2 <= 8) {
+            ChessPosition targetPosition = new ChessPosition(row - 1, col + 2);
+            ChessPiece targetPiece = board.getPiece(targetPosition);
+            if (targetPiece == null || targetPiece.pieceColor != this.pieceColor) {
+                moves.add(new ChessMove(myPosition, targetPosition, null));
+            }
+        }
+        //Down-Right
+        if (row - 2 >= 1 && row - 2 <= 8 && col + 1 >= 1 && col + 1 <= 8) {
+            ChessPosition targetPosition = new ChessPosition(row - 2, col + 1);
+            ChessPiece targetPiece = board.getPiece(targetPosition);
+            if (targetPiece == null || targetPiece.pieceColor != this.pieceColor) {
+                moves.add(new ChessMove(myPosition, targetPosition, null));
+            }
+        }
+        //Down-Left
+        if (row - 2 >= 1 && row - 2 <= 8 && col - 1 >= 1 && col - 1 <= 8) {
+            ChessPosition targetPosition = new ChessPosition(row - 2, col - 1);
+            ChessPiece targetPiece = board.getPiece(targetPosition);
+            if (targetPiece == null || targetPiece.pieceColor != this.pieceColor) {
+                moves.add(new ChessMove(myPosition, targetPosition, null));
+            }
+        }
+        //Left-Up
+        if (row + 1 >= 1 && row + 1 <= 8 && col - 2 >= 1 && col - 2 <= 8) {
+            ChessPosition targetPosition = new ChessPosition(row + 1, col - 2);
+            ChessPiece targetPiece = board.getPiece(targetPosition);
+            if (targetPiece == null || targetPiece.pieceColor != this.pieceColor) {
+                moves.add(new ChessMove(myPosition, targetPosition, null));
+            }
+        }
+        //Left-Down
+        if (row - 1 >= 1 && row - 1 <= 8 && col - 2 >= 1 && col - 2 <= 8) {
+            ChessPosition targetPosition = new ChessPosition(row - 1, col - 2);
+            ChessPiece targetPiece = board.getPiece(targetPosition);
+            if (targetPiece == null || targetPiece.pieceColor != this.pieceColor) {
+                moves.add(new ChessMove(myPosition, targetPosition, null));
             }
         }
         return moves;
