@@ -555,8 +555,10 @@ public class ChessPiece {
             if (row + 2 >= 1 && row + 2 <= 8 && col >= 1 && col <= 8) {
                 if (row == 2) {
                     ChessPosition targetPosition = new ChessPosition(row + 2, col);
+                    ChessPosition aheadPosition = new ChessPosition(row + 1, col);
                     ChessPiece targetPiece = board.getPiece(targetPosition);
-                    if (targetPiece == null) {
+                    ChessPiece aheadPiece = board.getPiece(aheadPosition);
+                    if (targetPiece == null && aheadPiece == null) {
                         moves.add(new ChessMove(myPosition, targetPosition, null));
                     }
                 }
@@ -612,8 +614,10 @@ public class ChessPiece {
             if (row - 2 >= 1 && row - 2 <= 8 && col >= 1 && col <= 8) {
                 if (row == 7) {
                     ChessPosition targetPosition = new ChessPosition(row - 2, col);
+                    ChessPosition aheadPosition = new ChessPosition(row - 1, col);
                     ChessPiece targetPiece = board.getPiece(targetPosition);
-                    if (targetPiece == null) {
+                    ChessPiece aheadPiece = board.getPiece(aheadPosition);
+                    if (targetPiece == null && aheadPiece == null) {
                         moves.add(new ChessMove(myPosition, targetPosition, null));
                     }
                 }
