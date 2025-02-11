@@ -79,16 +79,13 @@ public class ChessGame {
             ChessPosition newPlace = move.getEndPosition();
             ChessPiece newPiece = board.getPiece(newPlace);
 
-            //alter board
             board.addPiece(newPlace, currentPiece);
             board.addPiece(currentPlace, null);
             if (isInCheck(startPiece.getTeamColor())) {
-                //revert
                 board.addPiece(currentPlace, currentPiece);
                 board.addPiece(newPlace, newPiece);
             } else {
                 checkedMoves.add(move);
-                // Revert changes
                 board.addPiece(currentPlace, currentPiece);
                 board.addPiece(newPlace, newPiece);
             }
@@ -114,13 +111,10 @@ public class ChessGame {
         }
         ChessPiece currentPiece = board.getPiece(starter);
         ChessPiece newPiece = board.getPiece(ender);
-        //check if player turn
         if (currentPiece.getTeamColor() == TeamTurn) {
-            // It correct team
         } else {
             throw new InvalidMoveException("It's not your turn.");
         }
-        //promotions
         if (currentPiece.getPieceType() == ChessPiece.PieceType.PAWN) {
             if ((currentPiece.getTeamColor() == TeamColor.WHITE && ender.getRow() == 8) ||
                     (currentPiece.getTeamColor() == TeamColor.BLACK && ender.getRow() == 1)) {
@@ -135,11 +129,8 @@ public class ChessGame {
                 return;
             }
         }
-        //
-        //alter board
         board.addPiece(starter, null);
         board.addPiece(ender, currentPiece);
-        //change turn
         if (TeamTurn == TeamColor.WHITE) {
             setTeamTurn(TeamColor.BLACK);
         } else {
@@ -154,7 +145,6 @@ public class ChessGame {
      * @return True if the specified team is in check
      */
     public boolean isInCheck(TeamColor teamColor) {
-        //find king position
         ChessPosition kingPosition = null;
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
@@ -173,7 +163,6 @@ public class ChessGame {
                 break;
             }
         }
-        //iterate over all enemy move
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
                 ChessPosition piecePosition = new ChessPosition(y + 1, x + 1);
@@ -214,10 +203,8 @@ public class ChessGame {
                             ChessPiece currentPiece = board.getPiece(startPosition);
                             ChessPiece newPiece = board.getPiece(endPosition);
 
-                            //alter board
                             board.addPiece(startPosition, null);
                             board.addPiece(endPosition, currentPiece);
-                            //areygrwujegfiu
                             if (!isInCheck(teamColor)) {
                                 board.addPiece(startPosition, currentPiece);
                                 board.addPiece(endPosition, newPiece);
