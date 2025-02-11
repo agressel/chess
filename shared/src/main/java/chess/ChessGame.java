@@ -87,7 +87,6 @@ public class ChessGame {
                 board.addPiece(currentPlace, currentPiece);
                 board.addPiece(newPlace, newPiece);
             } else {
-                // Move is valid, add it to the list
                 checkedMoves.add(move);
                 // Revert changes
                 board.addPiece(currentPlace, currentPiece);
@@ -110,15 +109,14 @@ public class ChessGame {
         ChessPosition ender = move.getEndPosition();
         Collection<ChessMove> validMoves = validMoves(starter);
 
-        //check if valid
         if (!validMoves.contains(move)) {
             throw new InvalidMoveException("The move is invalid.");
         }
         ChessPiece currentPiece = board.getPiece(starter);
         ChessPiece newPiece = board.getPiece(ender);
-        //check if player's turn
+        //check if player turn
         if (currentPiece.getTeamColor() == TeamTurn) {
-            // It is the correct team's turn
+            // It correct team
         } else {
             throw new InvalidMoveException("It's not your turn.");
         }
@@ -134,7 +132,7 @@ public class ChessGame {
 
 
                 setTeamTurn(currentPiece.getTeamColor() == TeamColor.WHITE ? TeamColor.BLACK : TeamColor.WHITE);
-                return;  // No need to process further
+                return;
             }
         }
         //
@@ -162,7 +160,7 @@ public class ChessGame {
             for (int x = 0; x < 8; x++) {
                 ChessPiece piece = board.getPiece(new ChessPosition(y + 1, x + 1));
                 if (piece != null && piece.getPieceType() == ChessPiece.PieceType.KING) {
-                    //check if correct color
+                    //if correct color
                     if (piece.getTeamColor() == teamColor) {
                         kingPosition = new ChessPosition(y + 1, x + 1);
                     }
@@ -175,7 +173,7 @@ public class ChessGame {
                 break;
             }
         }
-        //iterate over every possible enemy move
+        //iterate over all enemy move
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
                 ChessPosition piecePosition = new ChessPosition(y + 1, x + 1);
@@ -200,8 +198,9 @@ public class ChessGame {
      * @return True if the specified team is in checkmate
      */
     public boolean isInCheckmate(TeamColor teamColor) {
-        if (isInCheck(teamColor)){
-            //iterate through all your moves
+        if (!isInCheck(teamColor)) {
+            return false;
+        } else {
             for (int y = 0; y < 8; y++) {
                 for (int x = 0; x < 8; x++) {
                     ChessPosition piecePosition = new ChessPosition(y + 1, x + 1);
@@ -211,19 +210,21 @@ public class ChessGame {
                         for (ChessMove moves : friendlyMoves) {
                             ChessPosition startPosition = moves.getStartPosition();
                             ChessPosition endPosition = moves.getEndPosition();
+
                             ChessPiece currentPiece = board.getPiece(startPosition);
                             ChessPiece newPiece = board.getPiece(endPosition);
 
                             //alter board
                             board.addPiece(startPosition, null);
                             board.addPiece(endPosition, currentPiece);
-                            if (!isInCheck(teamColor)){
-                                //revert changes
+                            //areygrwujegfiu
+                            if (!isInCheck(teamColor)) {
                                 board.addPiece(startPosition, currentPiece);
                                 board.addPiece(endPosition, newPiece);
                                 return false;
                             }
-                            //revert changes
+
+                            // Revert
                             board.addPiece(startPosition, currentPiece);
                             board.addPiece(endPosition, newPiece);
                         }
@@ -243,19 +244,19 @@ public class ChessGame {
      */
     public boolean isInStalemate(TeamColor teamColor) {
         if (!isInCheck(teamColor)) {
-            //check to see if there are no valid moves
             for (int y = 0; y < 8; y++) {
                 for (int x = 0; x < 8; x++) {
                     ChessPosition piecePosition = new ChessPosition(y + 1, x + 1);
                     ChessPiece piece = board.getPiece(piecePosition);
                     if (piece != null && piece.getTeamColor() == teamColor) {
-                        Collection<ChessMove> friendlyMoves = piece.pieceMoves(board, piecePosition);
-                        if (friendlyMoves.isEmpty()) {
-                            return true;
+                        Collection<ChessMove> friendlyMoves = validMoves(piecePosition);
+                        if (!friendlyMoves.isEmpty()) {
+                            return false;
                         }
                     }
                 }
             }
+            return true;
         }
         return false;
     }
