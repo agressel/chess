@@ -69,6 +69,12 @@
             <artifactId>tyrus-standalone-client</artifactId>
             <version>1.15</version>
         </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>4.3.1</version> <!-- Make sure this is the correct version -->
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 </project>
