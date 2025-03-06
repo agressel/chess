@@ -22,3 +22,12 @@ public class GameDataAccess {
         return games.get(gameId);
     }
 
+    public boolean updateGame(String gameId, String newState) {
+        Game game = games.get(gameId);
+        if (game != null) {
+            game.setState(newState);
+            return true;
+        }
+        return false;
+    }
+
