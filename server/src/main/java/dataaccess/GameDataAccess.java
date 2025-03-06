@@ -18,3 +18,7 @@ public class GameDataAccess {
         return true;
     }
 
+    public Game getGame(String gameId) {
+        return games.get(gameId);
+    }
+
