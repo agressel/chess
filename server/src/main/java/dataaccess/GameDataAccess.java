@@ -10,3 +10,11 @@ public class GameDataAccess {
         this.games = new HashMap<>();
     }
 
+    public boolean saveGame(Game game) {
+        if (game == null || game.getGameId() == null) {
+            return false;
+        }
+        games.put(game.getGameId(), game);
+        return true;
+    }
+
