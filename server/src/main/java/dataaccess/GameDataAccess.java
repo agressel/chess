@@ -4,7 +4,7 @@ import model.Game;
 import java.util.*;
 
 public class GameDataAccess {
-    private final Map<String, Game> games; // In-memory storage for games
+    private final Map<String, Game> games;
 
     public GameDataAccess() {
         this.games = new HashMap<>();
@@ -31,3 +31,15 @@ public class GameDataAccess {
         return false;
     }
 
+    public List<Game> listGames() {
+        return new ArrayList<>(games.values());
+    }
+
+    public boolean addPlayer(String gameId, String authToken, String playerColor) {
+        Game game = games.get(gameId);
+        if (game == null) {
+            return false;
+        }
+        return game.addPlayer(authToken, playerColor);
+    }
+}
