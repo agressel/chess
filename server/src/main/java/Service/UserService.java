@@ -26,11 +26,9 @@ public class UserService {
             return new UserResponse(false, "Username already exists.");
         }
 
-        // Create a new user and store it
         User newUser = new User(registerRequest.getUsername(), registerRequest.getPassword(), registerRequest.getEmail());
         userDataAccess.createUser(newUser);
 
-        // Generate authentication token
         String authToken = authDataAccess.createAuth(newUser);
 
         return new UserResponse(true, "Registration successful.", authToken);
@@ -41,13 +39,11 @@ public class UserService {
             return new UserResponse(false, "Invalid login request.");
         }
 
-        // Retrieve the user from the database
         User user = userDataAccess.getUser(loginRequest.getUsername());
         if (user == null || !user.getPassword().equals(loginRequest.getPassword())) {
             return new UserResponse(false, "Invalid username or password.");
         }
 
-        // Generate a new authentication token
         String authToken = authDataAccess.createAuth(user);
 
         return new UserResponse(true, "Login successful.", authToken);
